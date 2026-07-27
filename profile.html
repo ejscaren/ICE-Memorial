@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  main {
+    flex: 1;
+    padding: 56px 40px 100px;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-bottom: 40px;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .profile-photo {
+    width: 300px;
+    height: 300px;
+    /*border-radius: 50%; */
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-size: 30px;
+    color: var(--accent);
+    margin: 0 auto 20px;
+  }
+
+  .profile-name {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .profile-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .profile-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--line);
+    margin: 40px auto;
+  }
+
+  .profile-story p {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .not-found {
+    text-align: center;
+    color: var(--text-dim);
+    font-style: italic;
+    padding: 60px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav aria-label="Primary">
+    <a href="index.html">Home</a>
+    <a href="stories.html" class="active">Stories</a>
+    <a href="timeline.html">Timeline</a>
+    <a href="resources.html">Resources</a>
+  </nav>
+
+  <div class="header-controls">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" placeholder="Search a name" aria-label="Search a name" id="nameSearch" autocomplete="off">
+      <ul class="search-results" id="searchResults"></ul>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <nav aria-label="Primary">
+    <a href="stories.html">Back</a>
+  </nav>
+  
+  <div id="profileContent"></div>
+</main>
+
+<footer>
+This is a prototype.
+</footer>
+
+<script src="data.js"></script>
+<script>
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      link.classList.remove('pressed');
+      void link.offsetWidth;
+      link.classList.add('pressed');
+    });
+    link.addEventListener('animationend', () => {
+      link.classList.remove('pressed');
+    });
+  });
+
+  // ---- Load the right profile based on ?id= ----
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'), 10);
+  const profile = profiles.find(p => p.id === id);
+  const content = document.getElementById('profileContent');
+
+  if (profile) {
+    document.title = profile.name + ' — Memorial';
+    content.innerHTML = `
+      <div class="profile-header">
+        <img src="temp.jpg" class="profile-photo">
+        <h1 class="profile-name">${profile.name}</h1>
+        <div class="profile-meta">${profile.location} &middot; ${profile.year}</div>
+      </div>
+      <div class="profile-divider"></div>
+      <div class="profile-story">
+        ${profile.story.map(paragraph => `<p>${paragraph}</p>`).join('')}
+      </div>
+    `;
+  } else {
+    content.innerHTML = `<p class="not-found">This profile could not be found.</p>`;
+  }
+
+  // ---- Live name search (same as other pages) ----
+  const input = document.getElementById('nameSearch');
+  const resultsList = document.getElementById('searchResults');
+  let highlightedIndex = -1;
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function highlightMatch(name, query) {
+    const idx = name.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) return escapeHtml(name);
+    const before = escapeHtml(name.slice(0, idx));
+    const match = escapeHtml(name.slice(idx, idx + query.length));
+    const after = escapeHtml(name.slice(idx + query.length));
+    return before + '<mark>' + match + '</mark>' + after;
+  }
+
+  function goToProfile(pid) {
+    window.location.href = 'profile.html?id=' + pid;
+  }
+
+  function renderResults(query) {
+    resultsList.innerHTML = '';
+    highlightedIndex = -1;
+
+    if (!query) {
+      resultsList.classList.remove('open');
+      return;
+    }
+
+    const matches = profiles.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+
+    if (matches.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'no-results';
+      li.textContent = 'No names found';
+      resultsList.appendChild(li);
+    } else {
+      matches.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = highlightMatch(p.name, query);
+        li.addEventListener('click', () => goToProfile(p.id));
+        resultsList.appendChild(li);
+      });
+    }
+
+    resultsList.classList.add('open');
+  }
+
+  input.addEventListener('input', () => renderResults(input.value.trim()));
+  input.addEventListener('focus', () => {
+    if (input.value.trim()) renderResults(input.value.trim());
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = Array.from(resultsList.querySelectorAll('li:not(.no-results)'));
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      highlightedIndex = (highlightedIndex + 1) % items.length;
+      items.forEach((li, i) => li.classList.toggle('highlighted', i === highlightedIndex));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      highlightedIndex = (highlightedIndex - 1 + items.length) % items.length;
+      items.forEach((li, i) => li.classList.toggle('highlighted', i === highlightedIndex));
+    } else if (e.key === 'Enter') {
+      if (highlightedIndex >= 0) items[highlightedIndex].click();
+    } else if (e.key === 'Escape') {
+      resultsList.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) {
+      resultsList.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>

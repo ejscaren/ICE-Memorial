@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline — Memorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+  main {
+    flex: 1;
+    padding: 48px 40px 100px;
+  }
+
+  .option-heading {
+    max-width: 880px;
+    margin: 0 auto 32px;
+    padding-top: 16px;
+  }
+
+  .option-heading h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .option-heading p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .option-divider {
+    max-width: 880px;
+    margin: 80px auto;
+    height: 1px;
+    background: var(--line);
+  }
+
+
+  /* =========================================================
+     OPTION 1 STYLES — Centered line, alternating left/right
+     Delete this whole block (down to the closing comment)
+     if you don't want Option 1.
+     ========================================================= */
+
+  .tl1-container {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .tl1-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    transform: translateX(-50%);
+  }
+
+  .tl1-item {
+    position: relative;
+    width: 50%;
+    padding: 0 40px 56px;
+  }
+
+  .tl1-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+  }
+
+  .tl1-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+  }
+
+  .tl1-dot {
+    position: absolute;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .tl1-item:nth-child(odd) .tl1-dot {
+    right: -6px;
+  }
+
+  .tl1-item:nth-child(even) .tl1-dot {
+    left: -6px;
+  }
+
+  .tl1-year {
+    font-family: 'EB Garamond', serif;
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .tl1-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .tl1-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ===================== END OPTION 1 ===================== */
+
+
+  /* =========================================================
+     OPTION 2 STYLES — Left-aligned rail, simple list
+     Delete this whole block (down to the closing comment)
+     if you don't want Option 2.
+     ========================================================= */
+
+  .tl2-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .tl2-item {
+    position: relative;
+    display: flex;
+    gap: 28px;
+    padding-bottom: 48px;
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+    margin-left: 8px;
+  }
+
+  .tl2-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .tl2-dot {
+    position: absolute;
+    left: -6px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .tl2-year {
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    color: var(--accent);
+    min-width: 44px;
+    letter-spacing: 0.02em;
+  }
+
+  .tl2-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .tl2-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ===================== END OPTION 2 ===================== */
+
+
+  /* =========================================================
+     OPTION 3 STYLES — Horizontal scrolling timeline
+     Delete this whole block (down to the closing comment)
+     if you don't want Option 3.
+     ========================================================= */
+
+  .tl3-scroll {
+    max-width: 880px;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding-bottom: 24px;
+  }
+
+  .tl3-track {
+    position: relative;
+    display: flex;
+    min-width: max-content;
+    padding: 40px 20px 0;
+  }
+
+  .tl3-track::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 40px;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .tl3-item {
+    position: relative;
+    width: 220px;
+    flex-shrink: 0;
+    padding: 0 20px;
+  }
+
+  .tl3-dot {
+    position: absolute;
+    top: -4px;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .tl3-year {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin: 20px 0 6px;
+  }
+
+  .tl3-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .tl3-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .tl3-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .tl3-scroll::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 3px;
+  }
+
+  /* ===================== END OPTION 3 ===================== */
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav aria-label="Primary">
+    <a href="index.html">Home</a>
+    <a href="stories.html">Stories</a>
+    <a href="timeline.html" class="active">Timeline</a>
+    <a href="resources.html">Resources</a>
+  </nav>
+
+  <div class="header-controls">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" placeholder="Search a name" aria-label="Search a name" id="nameSearch" autocomplete="off">
+      <ul class="search-results" id="searchResults"></ul>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- =========================================================
+       OPTION 1 MARKUP — Centered line, alternating left/right
+       Delete this <div> (down to the matching closing comment)
+       if you don't want Option 1.
+       ========================================================= -->
+  <div class="option-heading">
+    <h2>History of ICE</h2>
+    <p>description</p>
+  </div>
+  <div class="tl1-container" id="tl1"></div>
+  <!-- ===================== END OPTION 1 ===================== -->
+
+  <div class="option-divider"></div>
+
+ <div class="option-heading">
+    <h2>Bias Research</h2>
+    <p>description</p>
+  </div>
+
+
+   <div class="option-divider"></div>
+
+    <div class="option-heading">
+    <h2>Citations</h2>
+    <p>description</p>
+  </div>
+
+  <!-- =========================================================
+       OPTION 3 MARKUP — Horizontal scrolling timeline
+       Delete this <div> (down to the matching closing comment)
+       if you don't want Option 3.
+       ========================================================= 
+  <div class="option-heading">
+    <h2>Option 3 — Horizontal scroll</h2>
+    <p>Entries laid out left to right along a horizontal line; scrolls sideways on longer timelines.</p>
+  </div>
+  <div class="tl3-scroll">
+    <div class="tl3-track" id="tl3"></div>
+  </div>
+   ===================== END OPTION 3 ===================== -->
+
+</main>
+
+<footer>
+This is a prototype.
+</footer>
+
+<script src="data.js"></script>
+<script>
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      link.classList.remove('pressed');
+      void link.offsetWidth;
+      link.classList.add('pressed');
+    });
+    link.addEventListener('animationend', () => {
+      link.classList.remove('pressed');
+    });
+  });
+
+  // ---- Sample timeline data ----
+  // Placeholder events — replace with real, sourced milestones.
+  const timelineEvents = [
+    { year: '2015', title: ' event title', desc: ' description ' },
+    { year: '2017', title: ' event title', desc: ' description ' },
+    { year: '2019', title: ' event title', desc: ' description ' },
+    { year: '2021', title: ' event title', desc: ' description ' },
+    { year: '2023', title: ' event title', desc: ' description ' }
+  ];
+
+  // ---- Render Option 1 ----
+  const tl1 = document.getElementById('tl1');
+  if (tl1) {
+    tl1.innerHTML = '<div class="tl1-line"></div>' + timelineEvents.map(e => `
+      <div class="tl1-item">
+        <!-- <div class="tl1-dot"></div>  -->
+        <div class="tl1-year">${e.year}</div>
+        <div class="tl1-title">${e.title}</div>
+        <div class="tl1-desc">${e.desc}</div>
+      </div>
+    `).join('');
+  }
+
+  // ---- Render Option 2 ----
+  const tl2 = document.getElementById('tl2');
+  if (tl2) {
+    tl2.innerHTML = timelineEvents.map(e => `
+      <div class="tl2-item">
+        <div class="tl2-dot"></div>
+        <div class="tl2-year">${e.year}</div>
+        <div>
+          <div class="tl2-title">${e.title}</div>
+          <div class="tl2-desc">${e.desc}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ---- Render Option 3 ----
+  const tl3 = document.getElementById('tl3');
+  if (tl3) {
+    tl3.innerHTML = timelineEvents.map(e => `
+      <div class="tl3-item">
+        <div class="tl3-dot"></div>
+        <div class="tl3-year">${e.year}</div>
+        <div class="tl3-title">${e.title}</div>
+        <div class="tl3-desc">${e.desc}</div>
+      </div>
+    `).join('');
+  }
+
+  // ---- Live name search (same as other pages) ----
+  const input = document.getElementById('nameSearch');
+  const resultsList = document.getElementById('searchResults');
+  let highlightedIndex = -1;
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function highlightMatch(name, query) {
+    const idx = name.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) return escapeHtml(name);
+    const before = escapeHtml(name.slice(0, idx));
+    const match = escapeHtml(name.slice(idx, idx + query.length));
+    const after = escapeHtml(name.slice(idx + query.length));
+    return before + '<mark>' + match + '</mark>' + after;
+  }
+
+  function goToProfile(id) {
+    window.location.href = 'profile.html?id=' + id;
+  }
+
+  function renderResults(query) {
+    resultsList.innerHTML = '';
+    highlightedIndex = -1;
+
+    if (!query) {
+      resultsList.classList.remove('open');
+      return;
+    }
+
+    const matches = profiles.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+
+    if (matches.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'no-results';
+      li.textContent = 'No names found';
+      resultsList.appendChild(li);
+    } else {
+      matches.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = highlightMatch(p.name, query);
+        li.addEventListener('click', () => goToProfile(p.id));
+        resultsList.appendChild(li);
+      });
+    }
+
+    resultsList.classList.add('open');
+  }
+
+  input.addEventListener('input', () => renderResults(input.value.trim()));
+  input.addEventListener('focus', () => {
+    if (input.value.trim()) renderResults(input.value.trim());
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = Array.from(resultsList.querySelectorAll('li:not(.no-results)'));
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      highlightedIndex = (highlightedIndex + 1) % items.length;
+      items.forEach((li, i) => li.classList.toggle('highlighted', i === highlightedIndex));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      highlightedIndex = (highlightedIndex - 1 + items.length) % items.length;
+      items.forEach((li, i) => li.classList.toggle('highlighted', i === highlightedIndex));
+    } else if (e.key === 'Enter') {
+      if (highlightedIndex >= 0) items[highlightedIndex].click();
+    } else if (e.key === 'Escape') {
+      resultsList.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) {
+      resultsList.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>
