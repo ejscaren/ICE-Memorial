@@ -1,7 +1,4 @@
-// Shared profile data — replace with your real records.
-// Each profile needs: id, name, initials, location, year, summary, story
-// - summary: 1-2 sentences shown on the card in Stories
-// - story: the longer text shown on the individual profile page (array of paragraphs)
+
 
 const profiles = [
   {
@@ -14,7 +11,7 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   },
   {
     id: 2,
@@ -26,7 +23,7 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   },
   {
     id: 3,
@@ -38,7 +35,7 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   },
   {
     id: 4,
@@ -50,7 +47,7 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   },
   {
     id: 5,
@@ -62,7 +59,7 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   }, 
   {
     id: 6,
@@ -74,6 +71,6 @@ const profiles = [
     story: [
       'story'
     ],
-    pic: ''  // add a real, rights-cleared photo filename here when available
+    pic: ''  
   }
 ];

@@ -42,13 +42,6 @@
     background: var(--line);
   }
 
-
-  /* =========================================================
-     OPTION 1 STYLES — Centered line, alternating left/right
-     Delete this whole block (down to the closing comment)
-     if you don't want Option 1.
-     ========================================================= */
-
   .tl1-container {
     position: relative;
     max-width: 880px;
@@ -118,145 +111,6 @@
     line-height: 1.6;
   }
 
-  /* ===================== END OPTION 1 ===================== */
-
-
-  /* =========================================================
-     OPTION 2 STYLES — Left-aligned rail, simple list
-     Delete this whole block (down to the closing comment)
-     if you don't want Option 2.
-     ========================================================= */
-
-  .tl2-container {
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  .tl2-item {
-    position: relative;
-    display: flex;
-    gap: 28px;
-    padding-bottom: 48px;
-    border-left: 1px solid var(--line);
-    padding-left: 32px;
-    margin-left: 8px;
-  }
-
-  .tl2-item:last-child {
-    padding-bottom: 0;
-  }
-
-  .tl2-dot {
-    position: absolute;
-    left: -6px;
-    top: 2px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-  }
-
-  .tl2-year {
-    font-family: 'EB Garamond', serif;
-    font-size: 15px;
-    color: var(--accent);
-    min-width: 44px;
-    letter-spacing: 0.02em;
-  }
-
-  .tl2-title {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-
-  .tl2-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  /* ===================== END OPTION 2 ===================== */
-
-
-  /* =========================================================
-     OPTION 3 STYLES — Horizontal scrolling timeline
-     Delete this whole block (down to the closing comment)
-     if you don't want Option 3.
-     ========================================================= */
-
-  .tl3-scroll {
-    max-width: 880px;
-    margin: 0 auto;
-    overflow-x: auto;
-    padding-bottom: 24px;
-  }
-
-  .tl3-track {
-    position: relative;
-    display: flex;
-    min-width: max-content;
-    padding: 40px 20px 0;
-  }
-
-  .tl3-track::before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    top: 40px;
-    height: 1px;
-    background: var(--line);
-  }
-
-  .tl3-item {
-    position: relative;
-    width: 220px;
-    flex-shrink: 0;
-    padding: 0 20px;
-  }
-
-  .tl3-dot {
-    position: absolute;
-    top: -4px;
-    left: 20px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-  }
-
-  .tl3-year {
-    font-family: 'EB Garamond', serif;
-    font-size: 20px;
-    color: var(--accent);
-    margin: 20px 0 6px;
-  }
-
-  .tl3-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-
-  .tl3-desc {
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  .tl3-scroll::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .tl3-scroll::-webkit-scrollbar-thumb {
-    background: var(--line);
-    border-radius: 3px;
-  }
-
-  /* ===================== END OPTION 3 ===================== */
 
 </style>
 </head>
@@ -264,10 +118,10 @@
 
 <header>
   <nav aria-label="Primary">
-    <a href="index.html">Home</a>
-    <a href="stories.html">Stories</a>
-    <a href="timeline.html" class="active">Timeline</a>
-    <a href="resources.html">Resources</a>
+    <a href="/index">Home</a>
+    <a href="/stories">Stories</a>
+    <a href="/timeline" class="active">Timeline</a>
+    <a href="/resources">Resources</a>
   </nav>
 
   <div class="header-controls">
@@ -284,17 +138,12 @@
 
 <main>
 
-  <!-- =========================================================
-       OPTION 1 MARKUP — Centered line, alternating left/right
-       Delete this <div> (down to the matching closing comment)
-       if you don't want Option 1.
-       ========================================================= -->
+
   <div class="option-heading">
     <h2>History of ICE</h2>
     <p>description</p>
   </div>
   <div class="tl1-container" id="tl1"></div>
-  <!-- ===================== END OPTION 1 ===================== -->
 
   <div class="option-divider"></div>
 
@@ -311,19 +160,7 @@
     <p>description</p>
   </div>
 
-  <!-- =========================================================
-       OPTION 3 MARKUP — Horizontal scrolling timeline
-       Delete this <div> (down to the matching closing comment)
-       if you don't want Option 3.
-       ========================================================= 
-  <div class="option-heading">
-    <h2>Option 3 — Horizontal scroll</h2>
-    <p>Entries laid out left to right along a horizontal line; scrolls sideways on longer timelines.</p>
-  </div>
-  <div class="tl3-scroll">
-    <div class="tl3-track" id="tl3"></div>
-  </div>
-   ===================== END OPTION 3 ===================== -->
+
 
 </main>
 
@@ -344,8 +181,8 @@ This is a prototype.
     });
   });
 
-  // ---- Sample timeline data ----
-  // Placeholder events — replace with real, sourced milestones.
+  //timeline data 
+  
   const timelineEvents = [
     { year: '2015', title: ' event title', desc: ' description ' },
     { year: '2017', title: ' event title', desc: ' description ' },
@@ -354,7 +191,7 @@ This is a prototype.
     { year: '2023', title: ' event title', desc: ' description ' }
   ];
 
-  // ---- Render Option 1 ----
+ 
   const tl1 = document.getElementById('tl1');
   if (tl1) {
     tl1.innerHTML = '<div class="tl1-line"></div>' + timelineEvents.map(e => `
@@ -367,35 +204,8 @@ This is a prototype.
     `).join('');
   }
 
-  // ---- Render Option 2 ----
-  const tl2 = document.getElementById('tl2');
-  if (tl2) {
-    tl2.innerHTML = timelineEvents.map(e => `
-      <div class="tl2-item">
-        <div class="tl2-dot"></div>
-        <div class="tl2-year">${e.year}</div>
-        <div>
-          <div class="tl2-title">${e.title}</div>
-          <div class="tl2-desc">${e.desc}</div>
-        </div>
-      </div>
-    `).join('');
-  }
 
-  // ---- Render Option 3 ----
-  const tl3 = document.getElementById('tl3');
-  if (tl3) {
-    tl3.innerHTML = timelineEvents.map(e => `
-      <div class="tl3-item">
-        <div class="tl3-dot"></div>
-        <div class="tl3-year">${e.year}</div>
-        <div class="tl3-title">${e.title}</div>
-        <div class="tl3-desc">${e.desc}</div>
-      </div>
-    `).join('');
-  }
-
-  // ---- Live name search (same as other pages) ----
+  //name search
   const input = document.getElementById('nameSearch');
   const resultsList = document.getElementById('searchResults');
   let highlightedIndex = -1;

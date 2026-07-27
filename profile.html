@@ -91,10 +91,10 @@
 
 <header>
   <nav aria-label="Primary">
-    <a href="index.html">Home</a>
-    <a href="stories.html" class="active">Stories</a>
-    <a href="timeline.html">Timeline</a>
-    <a href="resources.html">Resources</a>
+   <a href="/index" >Home</a>
+    <a href="/stories" class="active">Stories</a>
+    <a href="/timeline">Timeline</a>
+    <a href="/resources">Resources</a>
   </nav>
 
   <div class="header-controls">
@@ -157,7 +157,7 @@ This is a prototype.
     content.innerHTML = `<p class="not-found">This profile could not be found.</p>`;
   }
 
-  // ---- Live name search (same as other pages) ----
+  //Live name search
   const input = document.getElementById('nameSearch');
   const resultsList = document.getElementById('searchResults');
   let highlightedIndex = -1;
