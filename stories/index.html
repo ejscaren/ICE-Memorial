@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="../favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  main {
+    flex: 1;
+    padding: 48px 0 80px;
+    width: 66vw;
+    margin: 0 auto;
+  }
+
+  .page-heading {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .page-subheading {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  .card-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg-raised);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    min-width: 0;
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    background: #1f2228;
+    outline: none;
+  }
+
+  .card-photo {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    /*border-radius: 50%; */
+    border: 1px solid var(--line);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    color: var(--accent);
+    transition: border-color 0.25s ease;
+  }
+
+  .card:hover .card-photo {
+    border-color: var(--accent);
+  }
+
+  .card-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 19px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .card-summary {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-dim);
+    font-style: italic;
+    padding: 60px 0;
+    font-size: 14px;
+  }
+
+  @media (max-width: 800px) {
+    main {
+      width: 90vw;
+    }
+    .card-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav aria-label="Primary">
+    <a href="/index">Home</a>
+    <a href="/stories/index.html" class="active">Stories</a>
+    <a href="/timeline/index.html">Timeline</a>
+    <a href="/resources/index.html">Resources</a>
+  </nav>
+
+  <div class="header-controls">
+    <div class="dropdown-wrap" id="locationDropdownWrap">
+       <button type="button" class="dropdown-toggle" id="locationToggle" aria-haspopup="listbox" aria-expanded="false">
+        <span class="dropdown-label">All locations</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <ul class="search-results" id="locationResults" role="listbox"></ul>
+    </div>
+
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" placeholder="Search a name" aria-label="Search a name" id="nameSearch" autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-heading">Stories</h1>
+  <p class="page-subheading">Each profile below opens to a full account of that person's story.</p>
+
+  <div class="card-list" id="cardList"></div>
+  <p class="empty-state" id="emptyState" style="display: none;">No profiles match your search or filter.</p>
+</main>
+
+<footer>
+This is a prototype.
+</footer>
+
+<script src="../data.js"></script>
+<script>
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      link.classList.remove('pressed');
+      void link.offsetWidth;
+      link.classList.add('pressed');
+    });
+    link.addEventListener('animationend', () => {
+      link.classList.remove('pressed');
+    });
+  });
+
+  const cardList = document.getElementById('cardList');
+  const emptyState = document.getElementById('emptyState');
+  const searchInput = document.getElementById('nameSearch');
+
+  const dropdownWrap = document.getElementById('locationDropdownWrap');
+  const dropdownToggle = document.getElementById('locationToggle');
+  const dropdownLabel = dropdownToggle.querySelector('.dropdown-label');
+  const locationResults = document.getElementById('locationResults');
+  let selectedLocation = '';
+
+  //filter options from the data
+  const locations = [...new Set(profiles.map(p => p.location))].sort();
+
+  function renderLocationOptions() {
+    locationResults.innerHTML = '';
+
+    const allOption = document.createElement('li');
+    allOption.textContent = 'All locations';
+    allOption.setAttribute('role', 'option');
+    allOption.addEventListener('click', () => selectLocation(''));
+    locationResults.appendChild(allOption);
+
+    locations.forEach(loc => {
+      const li = document.createElement('li');
+      li.textContent = loc;
+      li.setAttribute('role', 'option');
+      li.addEventListener('click', () => selectLocation(loc));
+      locationResults.appendChild(li);
+    });
+  }
+
+  function selectLocation(loc) {
+    selectedLocation = loc;
+    dropdownLabel.textContent = loc || 'All locations';
+    dropdownToggle.classList.toggle('has-value', !!loc);
+    closeDropdown();
+    renderCards();
+  }
+
+  function openDropdown() {
+    locationResults.classList.add('open');
+    dropdownToggle.classList.add('open');
+    dropdownToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeDropdown() {
+    locationResults.classList.remove('open');
+    dropdownToggle.classList.remove('open');
+    dropdownToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  dropdownToggle.addEventListener('click', () => {
+    locationResults.classList.contains('open') ? closeDropdown() : openDropdown();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#locationDropdownWrap')) {
+      closeDropdown();
+    }
+  });
+
+  renderLocationOptions();
+
+  function renderCards() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    const filtered = profiles.filter(p => {
+      const matchesQuery = !query || p.name.toLowerCase().includes(query);
+      const matchesLocation = !selectedLocation || p.location === selectedLocation;
+      return matchesQuery && matchesLocation;
+    });
+
+    cardList.innerHTML = '';
+
+    if (filtered.length === 0) {
+      emptyState.style.display = 'block';
+      return;
+    }
+    emptyState.style.display = 'none';
+
+    filtered.forEach(p => {
+      const card = document.createElement('a');
+      card.href = '../profile/index.html?id=' + p.id;
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="../temp.jpg" class="card-photo">
+        <div class="card-info">
+          <div class="card-name">${p.name}</div>
+          <div class="card-meta">${p.location} &middot; ${p.year}</div>
+          <div class="card-summary">${p.summary}</div>
+        </div>
+      `;
+      cardList.appendChild(card);
+    });
+  }
+
+  searchInput.addEventListener('input', renderCards);
+
+  renderCards();
+</script>
+
+</body>
+</html>
