@@ -1,51 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memorial</title>
+<title>Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 <style>
+
   main {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 60px 24px;
+    padding: 48px 40px 100px;
   }
 
-  .statement {
-    max-width: 640px;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .option-heading {
+    max-width: 880px;
+    margin: 0 auto 32px;
+    padding-top: 16px;
+  }
+
+ .option-heading2 {
+    max-width: 500px;
+    margin: 0 auto 32px;
+    padding-top: 16px;
+  }
+
+  .option-heading h2 {
     font-family: 'EB Garamond', serif;
-    font-size: clamp(22px, 3.4vw, 34px);
+    font-size: 22px;
     font-weight: 400;
-    line-height: 1.5;
-    color: var(--text);
-    letter-spacing: 0.01em;
+    color: var(--accent);
+    margin-bottom: 4px;
   }
 
-  .statement em {
+  .option-heading p {
+    font-size: 13px;
+    color: var(--text-dim);
   }
+
+   .option-heading2 h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .option-heading2 p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .option-divider {
+    max-width: 500px;
+    margin: 80px auto;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .tl1-container {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .tl1-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    transform: translateX(-50%);
+  }
+
+  .tl1-item {
+    position: relative;
+    width: 50%;
+    padding: 0 40px 56px;
+  }
+
+  .tl1-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+  }
+
+  .tl1-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+  }
+
+  .tl1-dot {
+    position: absolute;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .tl1-item:nth-child(odd) .tl1-dot {
+    right: -6px;
+  }
+
+  .tl1-item:nth-child(even) .tl1-dot {
+    left: -6px;
+  }
+
+  .tl1-year {
+    font-family: 'EB Garamond', serif;
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .tl1-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .tl1-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+
 </style>
 </head>
 <body>
 
 <header>
   <nav aria-label="Primary">
-    <a href="./index.html" class="active">Home</a>
-    <a href="./stories/index.html">Stories</a>
-    <a href="./timeline/index.html">Research</a>
-    <a href="./resources/index.html">Resources</a>
+    <a href="../index.html">Home</a>
+    <a href="../stories/index.html">Stories</a>
+    <a href="../timeline/index.html" class="active">Research</a>
+    <a href="../resources/index.html">Resources</a>
   </nav>
 
   <div class="header-controls">
@@ -61,18 +156,55 @@
 </header>
 
 <main>
-  <p class="statement">
-    This is the unofficial memorial for victims of<br>
-    Immigration and Customs Enforcement
-  </p>
-</main>
 
+
+  <div class="option-heading">
+    <h2 style="display: flex; justify-content: center;">History of ICE</h2>
+    <p style="display: flex; justify-content: center;">description</p>
+  </div>
+
+  <!--
+  <div class="tl1-container" id="tl1"></div>-->
+
+  <div class="option-divider"></div>
+
+ <div class="option-heading">
+    <h2 style="display: flex; justify-content: center;">Bias Research</h2>
+    <p style="display: flex; justify-content: center;">description</p>
+  </div>
+
+
+   <div class="option-divider"></div>
+
+    <div class="option-heading2">
+    <h2 style="display: flex; justify-content: center;">Citations</h2>
+    <br>
+    <ul>
+
+      <li><p>Healy, J. (2026). ‘No Reason He Should Have Died’: Alex Pretti’s Parents Open &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up. <i>New York Times.</i></p></li>
+      <br>
+      <li><p>Icefall tracker: Media Archive, Memorial, & Immigration Resources. (n.d.). &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://icefalltracker.com/</p></li>
+      <br>
+      <li><p>Pendharkar, E. (2026). Johan Sebastián Guerrero’s family remembers him as a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loving and devoted man. <i>Maine Morning Star.</i></p></li>
+      <br>
+      <li><p>Patel, S. (2026). Who was Lorenzo Salgado Araujo, through the words of his &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;son. <i>Axios.</i></p></li>
+      <br>
+      <li><p>Scibelli, N. (2026). ‘Kindness radiated out of her’: Renee Good’s wife says she &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was supporting neighbors when fatally shot by ICE. <i>Sahan Journal.</i></p></li>
+      <br>
+    </ul>
+    
+    
+  </div>
+
+
+
+</main>
 
 <footer>
 This is a prototype.
 </footer>
 
-<script src="data.js"></script>
+<script src="../data.js"></script>
 <script>
   document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', () => {
@@ -85,6 +217,31 @@ This is a prototype.
     });
   });
 
+  //timeline data 
+  
+  const timelineEvents = [
+    { year: '2015', title: ' event title', desc: ' description ' },
+    { year: '2017', title: ' event title', desc: ' description ' },
+    { year: '2019', title: ' event title', desc: ' description ' },
+    { year: '2021', title: ' event title', desc: ' description ' },
+    { year: '2023', title: ' event title', desc: ' description ' }
+  ];
+
+ 
+  const tl1 = document.getElementById('tl1');
+  if (tl1) {
+    tl1.innerHTML = '<div class="tl1-line"></div>' + timelineEvents.map(e => `
+      <div class="tl1-item">
+        <!-- <div class="tl1-dot"></div>  -->
+        <div class="tl1-year">${e.year}</div>
+        <div class="tl1-title">${e.title}</div>
+        <div class="tl1-desc">${e.desc}</div>
+      </div>
+    `).join('');
+  }
+
+
+  //name search
   const input = document.getElementById('nameSearch');
   const resultsList = document.getElementById('searchResults');
   let highlightedIndex = -1;
@@ -166,7 +323,6 @@ This is a prototype.
     }
   });
 </script>
-
 
 </body>
 </html>
